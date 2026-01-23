@@ -152,7 +152,7 @@ On **Windows**, it is recommended to use **MinGW-w64**.
 Compile the project using **g++**:
 
 ```bash
-g++ main.cpp -std=c++17 -O2 -Wall -o qlemu
+g++ -std=c++17 -Wall -Wextra main.cpp QuantumRegister.cpp QuantumGate.cpp -o qlemu
 ```
 
 Run:
