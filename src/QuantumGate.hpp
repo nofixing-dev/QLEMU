@@ -8,15 +8,18 @@
 
 class QuantumGate {
 public:
-	// X-Gate
+	// ⁡⁢⁣⁣X-Gate⁡
 	static void X(QuantumRegister& reg, std::size_t targetQubit);
 
-	// Hadamard-Gate
+	// ⁡⁢⁣⁣Hadamard-Gate⁡
 	static void H(QuantumRegister& reg, std::size_t targetQubit);
 
-	// CNOT-Gate
+	// ⁡⁢⁣⁣CNOT-Gate⁡
 	static void CNOT(QuantumRegister& reg, std::size_t controlQubit, std::size_t targetQubit);
 
-	// Measure-Gate
+	// ⁡⁢⁣⁣Z-Gate⁡
+	static void Z(QuantumRegister& reg, std::size_t targetQubit);
+
+	// ⁡⁢⁣⁣Measure-Gate⁡
 	static void Measure(QuantumRegister& reg);
 };
