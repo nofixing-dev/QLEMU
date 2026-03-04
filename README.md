@@ -5,7 +5,8 @@
 <h1>Quantum Logic Emulator</h1>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#license)
-[![Version](https://img.shields.io/badge/version-0.1-blue.svg)](#)
+[![Version](https://img.shields.io/badge/Version-0.2-blue.svg)](#)
+[![CMake](https://img.shields.io/badge/Build-CMake-064F8C.svg)](#)
 
 **Simple quantum logic emulator in C++**
 </div>
@@ -100,6 +101,18 @@ Example:
 |00⟩ → |00⟩
 ```
 
+**Z (Pauli-Z)**
+
+The Z gate changes the phase of a qubit if it is in the |1⟩ state. Its matrix representation is:
+
+```
+(1   0)
+(0  -1)
+```
+
+- If the qubit is |0⟩, it remains unchanged.
+- If the qubit is |1⟩, its amplitude is multiplied by -1.
+
 **Measure**
 
 Measurement collapses the quantum register into a single classical basis state, selected randomly according to the squared magnitudes of the state amplitudes.
@@ -111,57 +124,36 @@ P(|1⟩) = |β|²
 
 ---
 
-## **Installation**
+### **Installation**
 
 **QLEMU** is written in C++ and requires a C++17-Compatible compiler.
 No external libraries are needed.
 
-### **Linux**
-
-#### **Ubuntu / Debian**
-
-Install **GCC** using apt:
-
-```bash
-sudo apt update
-sudo apt install build-essential
-```
-
-#### **Arch Linux**
-
-Install **GCC** using pacman:
-
-```bash
-sudo pacman -Syu
-sudo pacman -S gcc
-```
-
-### **Windows**
-
-On **Windows**, it is recommended to use **MinGW-w64**.
-
-**MinGW-w64:**
- 1. Download **MinGW-w64**
- 2. Add **bin** directory to **PATH**
- 3. Make sure **g++** is available in terminal
-
----
 
 ## **Build**
 
-Compile the project using **g++**:
+Compile the project using **CMake**:
 
 ```bash
-g++ -std=c++17 -Wall -Wextra main.cpp QuantumRegister.cpp QuantumGate.cpp -o qlemu
+mkdir build
+cd build
+
+cmake ..
+cmake --build .
 ```
 
 Run:
 
 ```bash
-./qlemu
+./build/QLEMU
+```
+or
+
+```bash
+./build/QLEMU.exe
 ```
 
-> Tested on Linux. Other platforms are supported but not actively tested.
+> Tested on Linux & Windows.
 
 ---
 
@@ -184,28 +176,30 @@ The execution flow is fully deterministic until measurement, which collapses the
 
 Below is a simple example demonstrating how to use **QLEMU**.
 
-```cpp
-#include "QuantumRegister.hpp"
-#include "QuantumGate.hpp"
-
-int main() {
-    // Create a quantum register with 3 qubits
-    QuantumRegister reg(3);
-
-    // Apply Hadamard gate to qubit 0
-    QuantumGate::H(reg, 0);
-
-    // Create entanglement between qubit 0 and qubit 1
-    QuantumGate::CNOT(reg, 0, 1);
-
-    // Measure the quantum register
-    QuantumGate::Measure(reg);
-
-    return 0;
-}
+```bash
+QLEMU> reg
+Enter number of qubits: 
+3
+QLEMU> h
+Enter qubit index: 
+0
+QLEMU> z
+Enter qubit index: 
+0
+QLEMU> h
+Enter qubit index: 
+0
+QLEMU> state
+|0>: (0,0)
+|1>: (1,0)
+|2>: (0,0)
+|3>: (0,0)
+|4>: (0,0)
+|5>: (0,0)
+|6>: (0,0)
+|7>: (0,0)
+QLEMU>
 ```
-
-> The output will be a classical bitstring representing the measured state of the quantum register.
 
 ---
 
@@ -215,11 +209,13 @@ int main() {
 - [x] Support 3 qubits
 - [x] Implement X, H, CNOT gates
 - [x] Implement full-register measurement
+- [x] Terminal
 - [ ] Add more single-qubit gates (Z, S, T)
 - [ ] Add multi-qubit gates (SWAP, CZ)
-- [ ] Support more qubits
+- [x] Support more qubits
 - [ ] Implement basic quantum algorithms
 - [ ] Optional visualization layer
+- [x] CMake
 
 ---
 
